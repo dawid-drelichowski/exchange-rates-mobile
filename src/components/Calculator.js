@@ -5,34 +5,44 @@ import {database} from '../store';
 import type {rates} from '../types/rates';
 import styles from '../styles';
 
+type state = {
+  rates: rates,
+  country: string,
+  transaction: string,
+  amount: number,
+  result: number
+};
+
 export default class Calculator extends Component {
-  state: {
-    rates: rates,
-    country: string,
-    transaction: string,
-    amount: number,
-    result: number
-  } = {
+  state: state = {
     rates: [],
     country: '',
-    transaction: '',
+    transaction: 'purchase',
     amount: 0,
     result: 0
   };
   onAmountChange = (text: string) => {
-    this.setState({amount: parseInt(text, 10)});
-    this.calculate();
+    let amount = parseInt(text, 10);
+
+    if (isNaN(amount)) {
+      amount = 0;
+    }
+    this.setState({amount, result: this.calculate({...this.state, amount})});
   };
   onTransactionChange = (transaction: string) => {
-    this.setState({transaction});
-    this.calculate();
+    this.setState({transaction, result: this.calculate({...this.state, transaction})});
   };
   onCountryChange = (country: string) => {
-    this.setState({country});
-    this.calculate();
+    this.setState({country, result: this.calculate({...this.state, country})});
   };
   componentWillMount() {
-    database.ref('rates').on('value', rates => this.setState({rates: rates.val()}));
+    database.ref('rates').on('value', rates => {
+      let country = this.state.country;
+
+      rates = rates.val();
+      country = country || rates[0].country;
+      this.setState({rates, country, result: this.calculate({...this.state, country, rates})});
+    });
   }
   render() {
     return <View>
@@ -49,13 +59,13 @@ export default class Calculator extends Component {
       <Text>{this.state.result}</Text>
     </View>
   }
-  calculate() {
-    const rate = this.state.rates.filter(rate => {
-      return rate.country === this.state.country;
+  calculate(state: state) {
+    const {rates, country, transaction, amount} = state,
+      rate = rates.filter(rate => {
+      return rate.country === country;
     }).shift();
-    if (rate && this.state.transaction) {
-      this.setState({result: this.state.amount * rate[this.state.transaction]});
+    if (rate && transaction) {
+      return amount * rate[transaction];
     }
-
   }
 }
