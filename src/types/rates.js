@@ -1,2 +1,3 @@
 //@flow
-export type rates = Array<{|country: string, currency: string, purchase: number, sale: number|}>
+export type Rate = {|country: string, currency: string, purchase: number, sale: number|};
+export type rates = Array<Rate>

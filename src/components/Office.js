@@ -1,17 +1,10 @@
 //@flow
+import type {Office as OfficeProperties} from '../types/offices';
 import React, {Component} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import MapView from 'react-native-maps';
-import {phonecall as phoneCall}  from 'react-native-communications'
+import {phonecall as phoneCall} from 'react-native-communications'
 import styles from '../styles';
-
-export type OfficeProperties = {|
-  map: ?{latitude: number, longitude: number, title: ?string, description: ?string},
-  name: ?string,
-  street: string,
-  city: string,
-  phoneNumber: string
-|};
 
 export default class Office extends Component {
   props: OfficeProperties;

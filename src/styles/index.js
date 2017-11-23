@@ -36,6 +36,10 @@ export default StyleSheet.create({
     height: 40,
     borderColor: colors.black,
     borderWidth: 1
+  },
+  disconnectedIcon: {
+    color: colors.black,
+    fontSize: 25
   }
 });
 

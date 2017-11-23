@@ -26,7 +26,10 @@
     "react-native-maps": "^0.15.0",
     "react-native-simple-table": "^0.0.2",
     "react-native-vector-icons": "^4.2.0",
-    "react-navigation": "^1.0.0-beta.9"
+    "react-navigation": "^1.0.0-beta.9",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-persist": "^5.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

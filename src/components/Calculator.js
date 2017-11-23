@@ -1,53 +1,44 @@
 //@flow
+import type {Node} from 'react';
+import type {rates} from '../types/rates';
 import React, {Component} from 'react';
 import {Picker, Text, TextInput, View} from 'react-native';
-import {database} from '../store';
-import type {rates} from '../types/rates';
 import styles from '../styles';
 
-type state = {
-  rates: rates,
-  country: string,
-  transaction: string,
-  amount: number,
-  result: number
+export type Props = {
+  rates: rates
 };
 
-export default class Calculator extends Component {
-  state: state = {
-    rates: [],
+type State = {
+  country: string,
+  transaction: string,
+  amount: number
+};
+
+export default class Calculator extends Component<Props> {
+  state: State = {
     country: '',
     transaction: 'purchase',
-    amount: 0,
-    result: 0
+    amount: 0
   };
-  onAmountChange = (text: string) => {
-    let amount = parseInt(text, 10);
+  onAmountChange = (text: string): void => {
+    let amount: number = parseInt(text, 10);
 
     if (isNaN(amount)) {
       amount = 0;
     }
-    this.setState({amount, result: this.calculate({...this.state, amount})});
+    this.setState({amount});
   };
-  onTransactionChange = (transaction: string) => {
-    this.setState({transaction, result: this.calculate({...this.state, transaction})});
+  onTransactionChange = (transaction: string): void => {
+    this.setState({transaction});
   };
-  onCountryChange = (country: string) => {
-    this.setState({country, result: this.calculate({...this.state, country})});
+  onCountryChange = (country: string): void => {
+    this.setState({country});
   };
-  componentWillMount() {
-    database.ref('rates').on('value', rates => {
-      let country = this.state.country;
-
-      rates = rates.val();
-      country = country || rates[0].country;
-      this.setState({rates, country, result: this.calculate({...this.state, country, rates})});
-    });
-  }
-  render() {
+  render(): Node {
     return <View>
       <Picker style={styles.picker} onValueChange={this.onCountryChange} selectedValue={this.state.country}>
-        {this.state.rates.map((rate, index) => {
+        {this.props.rates.map((rate, index) => {
           return <Picker.Item key={index} label={rate.country} value={rate.country}/>;
         })}
       </Picker>
@@ -56,14 +47,20 @@ export default class Calculator extends Component {
         <Picker.Item key={1} label="Sale" value="sale"/>
       </Picker>
       <TextInput onChangeText={this.onAmountChange} style={styles.amountInput} maxLength={10} keyboardType="numeric"/>
-      <Text>{this.state.result}</Text>
+      <Text>{this.calculate()}</Text>
     </View>
   }
-  calculate(state: state) {
-    const {rates, country, transaction, amount} = state,
-      rate = rates.filter(rate => {
-      return rate.country === country;
-    }).shift();
+  componentWillReceiveProps(nextProps: Props): void {
+    if (this.state.country) {
+      return;
+    }
+    this.setState({country: nextProps.rates[0].country});
+  }
+  calculate(): number | void {
+    const {country, transaction, amount} = this.state,
+      rate = this.props.rates.filter(rate => {
+        return rate.country === country;
+      }).shift();
     if (rate && transaction) {
       return amount * rate[transaction];
     }

@@ -1,18 +1,21 @@
 //@flow
+import type {Node} from 'react';
+import type {offices} from '../types/offices';
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {database} from '../store';
 import Office from './Office';
-import type {OfficeProperties} from './Office';
 
-export default class Offices extends Component {
-  state: {offices: Array<OfficeProperties>} = {offices: []};
-  componentWillMount() {
-    database.ref('offices').on('value', offices => this.setState({offices: offices.val()}));
-  }
-  render() {
+type Props = {
+  offices: offices
+}
+
+export default class Offices extends Component<Props> {
+  static defaultProps: Props = {
+    offices: []
+  };
+  render(): Node {
     return <View>
-      {this.state.offices.map((value, index) => {
+      {this.props.offices.map((value, index) => {
         return <Office key={index} {...value}/>;
       })}
     </View>
