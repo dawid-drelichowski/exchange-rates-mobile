@@ -1,8 +1,11 @@
 //@flow
+import config from 'react-native-config';
+import storage from 'redux-persist/es/storage';
+import {persistReducer} from 'redux-persist';
 import type {State} from '../types/state';
 import {Actions} from '../actions';
 
-export default (state: State = {isConnected: false, rates: [], offices: []}, action) => {
+const reducer = (state: State = {isConnected: false, rates: [], offices: []}, action) => {
   switch (action.type) {
     case Actions.CONNECTION_STATUS_CHANGE:
       return {...state, isConnected: action.isConnected};
@@ -14,3 +17,8 @@ export default (state: State = {isConnected: false, rates: [], offices: []}, act
       return state;
   }
 };
+
+export default persistReducer(
+  {key: config.PERSISTOR_KEY, blacklist: ['isConnected'], storage},
+  reducer
+);
