@@ -1,5 +1,5 @@
-import firebase from 'firebase';
-import config from 'react-native-config';
+import firebase from 'firebase'
+import config from 'react-native-config'
 
 firebase.initializeApp({
   apiKey: config.FIREBASE_API_KEY,
@@ -8,8 +8,8 @@ firebase.initializeApp({
   projectId: config.FIREBASE_PROJECT_ID,
   storageBucket: config.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: config.FIREBASE_MESSAGING_SENDER_ID,
-});
+})
 
-const database = firebase.database();
+const database = firebase.database()
 
-export default database;
+export default database

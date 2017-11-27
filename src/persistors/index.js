@@ -1,4 +1,4 @@
-import {persistStore} from 'redux-persist';
-import store from '../stores';
+import {persistStore} from 'redux-persist'
+import store from '../stores'
 
-export default persistStore(store);
+export default persistStore(store)

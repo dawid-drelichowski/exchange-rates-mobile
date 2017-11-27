@@ -1,16 +1,15 @@
 //@flow
-import type {Office as OfficeProperties} from '../types/offices';
-import React, {Component} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import MapView from 'react-native-maps';
+import type {Office as OfficeProperties} from '../types/offices'
+import React, {Component, Element} from 'react'
+import {Text, TouchableOpacity, View} from 'react-native'
+import MapView from 'react-native-maps'
 import {phonecall as phoneCall} from 'react-native-communications'
-import styles from '../styles';
+import styles from '../styles'
 
-export default class Office extends Component {
-  props: OfficeProperties;
-  onPhoneNumberPress = () => phoneCall(this.props.phoneNumber, true);
-  render() {
-    let map;
+export default class Office extends Component<void, OfficeProperties, void> {
+  onPhoneNumberPress = (): void => phoneCall(this.props.phoneNumber, true);
+  render(): Element<View> {
+    let map: MapView | void
 
     if (this.props.map) {
       map = <MapView

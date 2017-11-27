@@ -1,12 +1,14 @@
 //@flow
-import {connect} from 'react-redux';
-import OfficesScreen from '../components/OfficesScreen';
+import type {State} from '../types/state'
+import type {Props} from '../components/OfficesScreen'
+import {connect} from 'react-redux'
+import OfficesScreen from '../components/OfficesScreen'
 
 export default connect(
-  state => {
-    return {isConnected: state.isConnected};
+  (state: State): Props => {
+    return {isConnected: state.isConnected}
   },
-  () => {
-    return {};
+  (): {} => {
+    return {}
   }
-)(OfficesScreen);
+)(OfficesScreen)

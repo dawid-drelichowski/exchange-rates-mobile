@@ -16,6 +16,10 @@
 
 ; Ignore react-navigation because of errors
 .*/node_modules/react-navigation/.*/__tests__/.*
+; Ignore redux-persist because of errors
+.*/node_modules/redux-persist/.*/*.js.flow
+.*/node_modules/redux-persist/src/integration/react.js
+
 
 [include]
 

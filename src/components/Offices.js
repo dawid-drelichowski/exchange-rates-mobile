@@ -1,22 +1,21 @@
 //@flow
-import type {Node} from 'react';
-import type {offices} from '../types/offices';
-import React, {Component} from 'react';
-import {View} from 'react-native';
-import Office from './Office';
+import type {offices} from '../types/offices'
+import React, {Component, Element} from 'react'
+import {View} from 'react-native'
+import Office from './Office'
 
-type Props = {
+export type Props = {
   offices: offices
 }
 
-export default class Offices extends Component<Props> {
+export default class Offices extends Component<Props, Props, void> {
   static defaultProps: Props = {
     offices: []
   };
-  render(): Node {
+  render(): Element<View> {
     return <View>
       {this.props.offices.map((value, index) => {
-        return <Office key={index} {...value}/>;
+        return <Office key={index} {...value}/>
       })}
     </View>
   }

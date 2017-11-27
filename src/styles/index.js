@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
-import colors from './colors';
+//@flow
+import {StyleSheet} from 'react-native'
+import colors from './colors'
 
 export default StyleSheet.create({
   container: {
@@ -41,9 +42,9 @@ export default StyleSheet.create({
     color: colors.black,
     fontSize: 25
   }
-});
+})
 
-export const tabBarStyles = {
+export const tabBarStyles: {[string]: string} = {
   inactiveTintColor: colors.black,
   activeTintColor: colors.white
-};
+}

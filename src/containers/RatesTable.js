@@ -1,13 +1,15 @@
 //@flow
 // @todo: combine with Calculator - almost same code
-import {connect} from 'react-redux';
-import RatesTable from '../components/RatesTable';
+import type {State} from '../types/state'
+import type {Props} from '../components/RatesTable'
+import {connect} from 'react-redux'
+import RatesTable from '../components/RatesTable'
 
 export default connect(
-  state => {
-    return {rates: state.rates};
+  (state: State): Props => {
+    return {rates: state.rates}
   },
-  () => {
-    return {};
+  (): {} => {
+    return {}
   }
-)(RatesTable);
+)(RatesTable)

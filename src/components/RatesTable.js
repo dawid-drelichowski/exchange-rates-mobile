@@ -1,10 +1,13 @@
 //@flow
-import type {Node} from 'react'
-import type {rates} from '../types/rates';
-import React, {Component} from 'react';
-import Table from 'react-native-simple-table';
+import type {rates} from '../types/rates'
+import React, {Component, Element} from 'react'
+import Table from 'react-native-simple-table'
 
-export default class RatesTable extends Component<{rates: rates}> {
+export type Props = {
+  rates: rates
+}
+
+export default class RatesTable extends Component<void, Props, void> {
   static columns: Array<{|title: string, dataIndex: string, width?: number|}> = [
     {
       title: 'Country',
@@ -24,7 +27,7 @@ export default class RatesTable extends Component<{rates: rates}> {
       dataIndex: 'sale',
     }
   ];
-  render(): Node {
+  render(): Element<Table> {
     return <Table height={400} columnWidth={70} columns={this.constructor.columns} dataSource={this.props.rates} />
   }
 }
