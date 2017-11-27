@@ -2,6 +2,7 @@
 import React, {Component, Element} from 'react'
 import {ScrollView} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import ConnectionWarning from './ConnectionWarning'
 import Offices from '../containers/Offices'
 import styles from '../styles'
 
@@ -18,13 +19,8 @@ export default class OfficesScreen extends Component<Props, Props, void> {
     tabBarIcon: ({tintColor}): Icon => <Icon name="map-marker" style={[styles.tabBarIcon, {color: tintColor}]}/>
   };
   render(): Element<ScrollView> {
-    let disconnected: Icon | void
-
-    if (!this.props.isConnected) {
-      disconnected = <Icon name="plug" style={styles.disconnectedIcon}/>
-    }
     return <ScrollView style={styles.container} contentContainerStyle={styles.containerContent}>
-      {disconnected}
+      <ConnectionWarning isConnected={this.props.isConnected}/>
       <Offices/>
     </ScrollView>
   }
