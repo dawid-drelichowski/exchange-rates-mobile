@@ -2,7 +2,7 @@
 import type {State} from '../types/state'
 import type {Props} from '../components/OfficesScreen'
 import {connect} from 'react-redux'
-import OfficesScreen from '../components/OfficesScreen'
+import ConnectionWarning from "../components/ConnectionWarning"
 
 export default connect(
   (state: State): Props => {
@@ -11,4 +11,4 @@ export default connect(
   (): {} => {
     return {}
   }
-)(OfficesScreen)
+)(ConnectionWarning)

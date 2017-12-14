@@ -1,18 +1,24 @@
+//@flow
+import withConnectionWarning from './higherOrder/withConnectionWarning'
 import RatesScreen from './RatesScreen'
-import OfficesScreen from '../containers/OfficesScreen'
 import CalculatorScreen from './CalculatorScreen'
+import OfficesScreen from './OfficesScreen'
 import {TabNavigator} from 'react-navigation'
 import styles, {tabBarStyles} from '../styles'
 
+const screenProps: {
+  style: {}
+} =  {style: styles.screen}
+
 export default TabNavigator({
   Rates: {
-    screen: RatesScreen,
+    screen: withConnectionWarning(RatesScreen, screenProps)
   },
   Offices: {
-    screen: OfficesScreen,
+    screen: withConnectionWarning(OfficesScreen, screenProps)
   },
   Calculator: {
-    screen: CalculatorScreen
+    screen: withConnectionWarning(CalculatorScreen, screenProps)
   }
 }, {
   tabBarOptions: {

@@ -9,9 +9,9 @@ export default class RatesScreen extends Component<void, void, void> {
   static navigationOptions = {
     tabBarLabel: 'Rates',
     tabBarIcon: ({tintColor}): Icon => <Icon name="table" style={[styles.tabBarIcon, {color: tintColor}]}/>
-  };
+  }
   render(): Element<ScrollView> {
-    return <ScrollView style={styles.container} contentContainerStyle={styles.containerContent}>
+    return <ScrollView contentContainerStyle={styles.screenContent}>
       <RatesTable/>
     </ScrollView>
   }

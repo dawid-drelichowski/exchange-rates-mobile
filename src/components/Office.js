@@ -9,7 +9,7 @@ import styles from '../styles'
 export default class Office extends Component<void, OfficeProperties, void> {
   onPhoneNumberPress = (): void => phoneCall(this.props.phoneNumber, true);
   render(): Element<View> {
-    let map: MapView | void
+    let map: MapView | null = null
 
     if (this.props.map) {
       map = <MapView

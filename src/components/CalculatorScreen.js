@@ -9,9 +9,9 @@ export default class CalculatorScreen extends Component<void, void, void> {
   static navigationOptions = {
     tabBarLabel: 'Calculator',
     tabBarIcon: ({tintColor}): Icon => <Icon name="calculator" style={[styles.tabBarIcon, {color: tintColor}]}/>
-  };
+  }
   render(): Element<ScrollView> {
-    return <ScrollView style={styles.container} contentContainerStyle={styles.containerContent}>
+    return <ScrollView contentContainerStyle={styles.screenContent}>
       <Calculator/>
     </ScrollView>
   }

@@ -3,12 +3,12 @@ import {StyleSheet} from 'react-native'
 import colors from './colors'
 
 export default StyleSheet.create({
-  container: {
+  screen: {
     paddingTop: 30,
-    backgroundColor: colors.white,
+    /*backgroundColor: colors.white,*/
     flex: 1
   },
-  containerContent: {
+  screenContent: {
     alignItems: 'center'
   },
   tabBar: {
@@ -38,9 +38,14 @@ export default StyleSheet.create({
     borderColor: colors.black,
     borderWidth: 1
   },
-  disconnectedIcon: {
-    color: colors.black,
-    fontSize: 25
+  connectionWarning: {
+    backgroundColor: colors.yellow,
+    //alignSelf: 'stretch',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0
   }
 })
 

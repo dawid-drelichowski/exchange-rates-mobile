@@ -34,9 +34,9 @@ export default class Calculator extends Component<void, Props, State> {
   onCountryChange = (country: string): void => {
     this.setState({country})
   };
-  render(): Element<any> {
+  render(): Element<View> {
     return <View>
-      <Picker style={styles.picker} onValueChange={this.onCountryChange} selectedValue={this.state.country}>
+      <Picker style={styles.picker} onValueChange={this.onCountryChange} selectedValue={this.getCountry()}>
         {this.props.rates.map((rate, index) => {
           return <Picker.Item key={index} label={rate.country} value={rate.country}/>
         })}
@@ -49,14 +49,20 @@ export default class Calculator extends Component<void, Props, State> {
       <Text>{this.calculate()}</Text>
     </View>
   }
-  componentWillReceiveProps(nextProps: Props): void {
-    if (this.state.country) {
-      return
+  getCountry(): string {
+    const rates: rates = this.props.rates
+    let country: string = this.state.country
+    if (country) {
+      return country
     }
-    this.setState({country: nextProps.rates[0].country})
+    if (rates && rates[0]) {
+      country = rates[0].country
+    }
+    return country
   }
   calculate(): number {
-    const {country, transaction, amount} = this.state,
+    const {transaction, amount} = this.state,
+      country = this.getCountry(),
       rate = this.props.rates.filter(rate => {
         return rate.country === country
       }).shift()
